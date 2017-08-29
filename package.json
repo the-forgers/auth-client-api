@@ -30,7 +30,8 @@
   },
   "homepage": "https://gitlab.com/mukundbhudia/auth-client-api#README",
   "dependencies": {
-    "restify": "~5.2.0"
+    "restify": "~5.2.0",
+    "jsonwebtoken": "^7.4.3"
   },
   "devDependencies": {
     "jasmine": "^2.4.1",
