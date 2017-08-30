@@ -7,7 +7,7 @@ async function isValidToken(token, emailToVerify) {
   if (token) {
     try {
       const decoded = await jwt.verify(token, publicCert, { algorithms: ['RS512'] });
-      if (decoded._doc.email === emailToVerify) {
+      if (decoded.email === emailToVerify) {
         return true;
       } else {
         return false;
@@ -15,7 +15,7 @@ async function isValidToken(token, emailToVerify) {
     } catch (err) {
       return err.message;
     }
-    return true
+    return true;
   } else {
     return false;
   }
