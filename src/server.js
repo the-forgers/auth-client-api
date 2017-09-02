@@ -14,25 +14,33 @@ function status(req, res, next) {
 
 async function checkToken(req, res, next) {
   const token = req.headers['x-access-token'];
-  const email = req.headers['x-access-email'];
-  const isTokenValid = await jwtUtils.isValidToken(token, email);
-  const tokenFromStore = await tokenStore.getToken(email);
-  const doesTokenMatch = token === tokenFromStore;
-  if (doesTokenMatch === true && isTokenValid === true) {
-    req.userEmail = email;  // TODO: need to be an decoded email
-    return next();
+  const decodedToken = await jwtUtils.decodeToken(token);
+
+  if (decodedToken.error === null) {
+    const decodedEmail = decodedToken.data.email;
+    const tokenFromStore = await tokenStore.getToken(decodedEmail);
+    const doesTokenMatchStore = token === tokenFromStore;
+    if (doesTokenMatchStore === true) {
+      req.decodedToken = decodedToken;
+      return next();
+    } else {
+      res.send(403, { 
+        'msg': 'tokenNonExistant',
+        'doesTokenMatchStore': doesTokenMatchStore
+      });
+    }
   } else {
     res.send(403, { 
       'msg': 'tokenInValid',
-      'doesTokenMatch': doesTokenMatch,
-      'isTokenValid': isTokenValid
+      'decodedToken': decodedToken
     });
   }
 }
 
 function private(req, res, next) {
+  const decodedToken = req.decodedToken;
   const response = {
-    'msg': 'this is a private message, for those logged in only'
+    'msg': `Token accepted ${decodedToken.data.email}`
   };
   res.send(response);
   next();
