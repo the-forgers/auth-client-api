@@ -2,7 +2,7 @@ const restify = require('restify');
 const port = 5050 || process.env.PORT;
 
 const jwtUtils = require('./lib/jwtUtils');
-const tokenStore = require('./lib/tokenStore');
+const tokenCache = require('./lib/tokenCache');
 
 function status(req, res, next) {
   const response = {
@@ -18,7 +18,7 @@ async function checkToken(req, res, next) {
 
   if (decodedToken.error === null) {
     const decodedEmail = decodedToken.data.email;
-    const tokenFromStore = await tokenStore.getToken(decodedEmail);
+    const tokenFromStore = await tokenCache.getToken(decodedEmail);
     const doesTokenMatchStore = token === tokenFromStore;
     if (doesTokenMatchStore === true) {
       req.decodedToken = decodedToken;
