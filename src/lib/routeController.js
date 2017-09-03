@@ -6,7 +6,7 @@ function status(req, res, next) {
     'msg': 'welcome'
   };
   res.send(response);
-  next();
+  return next();
 }
 
 async function checkToken(req, res, next) {
@@ -25,12 +25,14 @@ async function checkToken(req, res, next) {
         'msg': 'tokenNonExistant',
         'doesTokenMatchStore': doesTokenMatchStore
       });
+      return next();
     }
   } else {
     res.send(403, { 
       'msg': 'tokenInValid',
       'decodedToken': decodedToken
     });
+    return next();
   }
 }
 
@@ -40,7 +42,7 @@ function private(req, res, next) {
     'msg': `Token accepted ${decodedToken.data.email}`
   };
   res.send(response);
-  next();
+  return next();
 }
 
 module.exports = {
