@@ -36,7 +36,7 @@ async function checkToken(req, res, next) {
   }
 }
 
-function private(req, res, next) {
+function me(req, res, next) {
   const decodedToken = req.decodedToken;
   const response = {
     'msg': `Token accepted ${decodedToken.data.email}`
@@ -48,5 +48,5 @@ function private(req, res, next) {
 module.exports = {
   status: status,
   checkToken: checkToken,
-  private: private
+  me: me
 };

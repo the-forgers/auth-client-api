@@ -7,7 +7,7 @@ const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
 server.get('/status', routeController.status);
 server.use(routeController.checkToken);
-server.get('/private', routeController.private);
+server.get('/me', routeController.me);
 
 server.listen(port, () => {
   console.log(`${server.name} listening at ${server.url}`);
