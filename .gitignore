@@ -30,5 +30,5 @@ node_modules
 # Public and Private keys
 auth-gateway-cert*
 
-# ES docs
-docs
+# JS docs
+# docs
