@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf node_modules",
     "refresh": "rimraf node_modules && npm i",
-    "gendocs": "documentation build src/** -f html -o docs"
+    "gendocs": "esdoc"
   },
   "repository": {
     "type": "git",
@@ -39,7 +39,8 @@
     "redis": "^2.8.0"
   },
   "devDependencies": {
-    "documentation": "^5.3.1",
+    "esdoc": "^1.0.2",
+    "esdoc-standard-plugin": "^1.0.0",
     "jasmine": "^2.4.1",
     "jsdoc": "^3.4.0",
     "rimraf": "latest",
